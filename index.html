@@ -6,6 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Hello World!</p>
+    <form action="alt/千反田" method="get">
+
+        <fieldset>
+            <legend>你喜欢千反田？</legend>
+            <input type="radio" name="组件名" id="True_QFT" value="QFT_1" checked>
+            <label for="True_QFT">对</label><br />
+            <input type="radio" name="组件名" id="False_QFT" value="QFT_0">
+            <label for="False_QFT">错</label>   <br />
+        </fieldset>
+
+            <input type="submit" value="提交">
+
+
+        <fieldset>
+            <form action="alt/other"></form>
+            <legend for="other">你喜欢其他人吗？</legend>
+            <section id="other" name="section_other">
+                <option value="1">喜欢</option>
+                <option value="0">不喜欢</option>
+            </section>
+            </fieldset>
+    </form>
 </body>
 </html>
