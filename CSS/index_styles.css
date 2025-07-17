@@ -1,10 +1,11 @@
 body {
-    background-color: rgb(156, 69, 214);
+    background-color: rgb(25, 115, 179);
     font-family:  Arial, Helvetica, sans-serif;
     font-size: 12px;
 }
 #guide {
     text-align: center;
+    margin-top: auto;
 }
 /* guide inline block  强制居中，取自父级*/
 #guide li {
@@ -22,5 +23,18 @@ body {
     text-align: center;
 
 }
-#content q{
-    font-size: larger;}
+#main_text{
+    display : block;
+    margin: auto 0;
+    text-align: center;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: hsla(282, 38%, 29%, 0.8);
+    color: hsla(172, 90%, 46%, 0.8);
+}
+
+#Gothweb{
+    color: rgb(255, 255, 0);
+    font-weight: bold;
+    font-size: 25px;
+}
