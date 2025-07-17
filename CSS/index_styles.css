@@ -18,3 +18,9 @@ body {
     color: white;
     
 }
+#content{
+    text-align: center;
+
+}
+#content q{
+    font-size: larger;}
