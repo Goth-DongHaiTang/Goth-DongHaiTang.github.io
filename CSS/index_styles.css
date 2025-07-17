@@ -1,0 +1,20 @@
+body {
+    background-color: rgb(156, 69, 214);
+    font-family:  Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+#guide {
+    text-align: center;
+}
+/* guide inline block  强制居中，取自父级*/
+#guide li {
+    display: inline-block;
+    margin: 5px;
+}
+#guide li a {
+
+    background-color: rgba(82, 25, 181, 0.4)    ;
+    opacity: 0.8;
+    color: white;
+    
+}
