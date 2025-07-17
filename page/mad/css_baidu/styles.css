@@ -1,3 +1,29 @@
 body {
     background-color: #ffffff;
 }
+
+.top_info{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.left_top{
+        display: inline-block;
+    height: 10px;
+    width: 25px;
+    color:black;
+    padding: 8px;
+    background-color: white;
+}
+.button_left{
+    display: flex;
+    writing-mode: horizontal-tb;
+}
+
+
+#AI_baidu :hover{
+   transform: scale(1.1);
+}
+#more:hover{
+    display:contents;
+}
