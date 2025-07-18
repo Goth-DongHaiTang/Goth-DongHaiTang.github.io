@@ -136,10 +136,8 @@ body {
 
 
 #footer{
-    text-align: center;
-    margin-top: auto;
-    position: absolute;
-    bottom: 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin-left: 30%;
+    margin-top: 20em;
 }
