@@ -4,82 +4,266 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="res/favicon.ico" type="image/x-icon">
-
     <meta name="description" content="全球领先的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。百度超过千亿的中文网页数据库，可以瞬间找到相关的搜索结果。">
-
     <meta property="og:image" content="res/baidu.png">
-    <link rel="stylesheet" href="css_baidu/styles.css">
     <title>百度一下，你就知道</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        /* 顶部导航 */
+        .top_info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .left_group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .right_group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .button_left, .button_right {
+            text-decoration: none;
+            color: #222222;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .button_left:hover, .button_right:hover {
+            background-color: #f5f5f5;
+        }
+
+        .logo {
+            width: 2.1em;
+            height: 1.4em;
+        }
+
+        .icon {
+            width: 1.2em;
+            height: 1.2em;
+            vertical-align: middle;
+            border-radius: 50%;
+            margin-right: 0.3rem;
+        }
+
+        /* 主要内容区域 */
+        .main_content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .baidu_logo {
+            width: 20rem;
+            height: 8rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .baidu_logo:hover {
+            transform: scale(1.02);
+        }
+
+        /* 搜索框 */
+        .search_container {
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .search_form {
+            display: flex;
+            width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .search_form:focus-within {
+            border-color: #4a90e2;
+            box-shadow: 0 2px 12px rgba(74, 144, 226, 0.2);
+        }
+
+        #search_input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+        }
+
+        #search_input::placeholder {
+            color: #999;
+        }
+
+        #search_button {
+            padding: 0.8rem 2rem;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #search_button:hover {
+            background-color: #357ab8;
+        }
+
+        /* AI 按钮特效 */
+        #AI_baidu {
+            transition: transform 0.3s ease;
+        }
+
+        #AI_baidu:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+            margin-top: auto;
+        }
+
+        .footer span {
+            display: block;
+            margin: 0.3rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .top_info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .left_group, .right_group {
+                justify-content: center;
+            }
+            
+            .baidu_logo {
+                width: 15rem;
+                height: 6rem;
+            }
+            
+            .search_container {
+                max-width: 100%;
+            }
+            
+            #search_input {
+                font-size: 0.9rem;
+            }
+            
+            #search_button {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container"> 
+    <div class="container">
+        <!-- 顶部导航 -->
         <div class="top_info" id="top_info">
-                <div class="left_group">
-            <div class="left_top"><a class="button_left" href="http://news.baidu.com/" target="_blank">新闻</a></div>
-            <div class="left_top"><a class="button_left" href="https://www.hao123.com/?src=from_pc_logon" target="_blank">hao123</a></div>
-            <div class="left_top"><a class="button_left" href="http://map.baidu.com/" target="_blank">地图</a></div>
-            <div class="left_top"><a class="button_left" href="http://tieba.baidu.com/" target="_blank">贴吧</a></div>
-            <div class="left_top"><a class="button_left" href="https://haokan.baidu.com/?sfrom=baidu-top" target="_blank">视频</a></div>
-            <div class="left_top"><a class="button_left" href="http://image.baidu.com/" target="_blank">图片</a></div>
-            <div class="left_top"><a class="button_left" href="https://pan.baidu.com/?from=1026962h" target="_blank">网盘</a></div>
-            <div class="left_top"><a class="button_left" href="https://wenku.baidu.com/?fr=bdpcindex" target="_blank">文库</a></div>
-            <div class="left_top"><a id="AI_baidu" href="https://chat.baidu.com/" target="_blank">
-                <img src="res/AI_baidu.png" alt="百度的AI" class="logo"></div>
-            <div class="left_top"><a class="button_left" href="http://www.baidu.com/more/" target="_blank">更多</a></div>
-                </div>
+            <div class="left_group">
+                <a class="button_left" href="http://news.baidu.com/" target="_blank">新闻</a>
+                <a class="button_left" href="https://www.hao123.com/?src=from_pc_logon" target="_blank">hao123</a>
+                <a class="button_left" href="http://map.baidu.com/" target="_blank">地图</a>
+                <a class="button_left" href="http://tieba.baidu.com/" target="_blank">贴吧</a>
+                <a class="button_left" href="https://haokan.baidu.com/?sfrom=baidu-top" target="_blank">视频</a>
+                <a class="button_left" href="http://image.baidu.com/" target="_blank">图片</a>
+                <a class="button_left" href="https://pan.baidu.com/?from=1026962h" target="_blank">网盘</a>
+                <a class="button_left" href="https://wenku.baidu.com/?fr=bdpcindex" target="_blank">文库</a>
+                <a id="AI_baidu" href="https://chat.baidu.com/" target="_blank">
+                    <img src="res/AI_baidu.png" alt="百度的AI" class="logo">
+                </a>
+                <a class="button_left" href="http://www.baidu.com/more/" target="_blank">更多</a>
+            </div>
 
-                <div class="right_group">
-            <div class="right_top">
-            <a class="button_right" 
-                href="https://www.baidu.com/s?tn=baidutop10&rsv_idx=2&wd=天气预报" 
-                target="_blank">天气<img src="res/weather.png" alt="天气" class="icon"></a> </div>
-
-            <div class="right_top"><a class="button_right" >设置</a></div>
-            
-            <div class="right_top"><a class="button_right" href="https://www.baidu.com/my/index" target="_blank">
-                <img src="res/my.jpg" alt="个人主页" class="icon">个人主页
-                
+            <div class="right_group">
+                <a class="button_right" href="https://www.baidu.com/s?tn=baidutop10&rsv_idx=2&wd=天气预报" target="_blank">
+                    天气<img src="res/weather.png" alt="天气" class="icon">
+                </a>
+                <a class="button_right">设置</a>
+                <a class="button_right" href="https://www.baidu.com/my/index" target="_blank">
+                    <img src="res/my.jpg" alt="个人主页" class="icon">个人主页
                 </a>
             </div>
-                </div>
         </div>
 
-        <div id="search" class="search">
-            <div class="search_logo">
-                <a href="https://www.baidu.com/s?wd=百度热搜" target="_blank">
-                    <img src="res/search_baidu.png" alt="百度logo" class="baidu_logo" title="众里寻他千百度。蓦然回首，那人却在，灯火阑珊处" > 
-                </a>
-                <form action="https://www.baidu.com/s" method="get"> <!--用表单写一个请求,不过怎么传参呢？ -->
-                    <input type="text" name="wd" id="search_input" placeholder="百度一下，你就知道" >
-                    <button type="submit" id="search_button" >百度一下</button>
+        <!-- 主要内容 -->
+        <div class="main_content">
+            <a href="https://www.baidu.com/s?wd=百度热搜" target="_blank">
+                <img src="res/search_baidu.png" alt="百度logo" class="baidu_logo" title="众里寻他千百度。蓦然回首，那人却在，灯火阑珊处">
+            </a>
+            
+            <div class="search_container">
+                <form action="https://www.baidu.com/s" method="get" class="search_form">
+                    <input type="text" name="wd" id="search_input" placeholder="百度一下，你就知道">
+                    <button type="submit" id="search_button">百度一下</button>
                 </form>
-
-
-
-
-                    
-                    
-                    
-                    
-
-
-            </div>    
-
-
+            </div>
         </div>
-    
 
-                    <footer id="footer">
-    <span>&copy 2025 本网页由<strong>Github pages</strong> 支持</span>
-    <br />
-    <span>这是我的个人Github项目地址：<a href="https://github.com/Goth-DongHaiTang" target="_blank">https://github.com/Goth-DongHaiTang</a></span>
-</footer>
-
-    </div> <!-- 结束container -->
-
-
-
-    
+        <!-- Footer -->
+        <footer class="footer">
+            <span>&copy; 2025 本网页由<strong>Github pages</strong> 支持</span>
+            <span>这是我的个人Github项目地址：<a href="https://github.com/Goth-DongHaiTang" target="_blank">https://github.com/Goth-DongHaiTang</a></span>
+        </footer>
+    </div>
 </body>
-
 </html>
