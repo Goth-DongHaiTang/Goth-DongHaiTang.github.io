@@ -1,8 +1,18 @@
+html, body {
+    height: 100%; /* 设置html和body的高度为100% */
+    margin: 0; /* 移除默认的margin */
+}
 body {
     background-color: #ffffff;
     padding: 1%;
-    
+    min-width: 100vh;
 }
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
 
 .top_info{
     display: flex;
@@ -85,22 +95,25 @@ body {
     height:2em;
     border-radius: 0.5em;
     border: 1px solid #ccc;
+    position: relative
 }
 
+#search_input:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
 
+#search_button{
+    height: 2em;
+    background-color: #4a90e2;
+    border: none;
+    border-radius:  0 0.5em 0.5em 0;
+    color: white;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+#search_button:hover {
+    background-color: #357ab8;
+}
 
 
 
@@ -120,3 +133,7 @@ body {
 }
 
 
+#footer{
+    text-align: center;
+    margin-top: 37%;
+}
