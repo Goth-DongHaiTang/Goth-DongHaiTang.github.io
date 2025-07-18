@@ -1,4 +1,4 @@
-html, body {
+html {
     height: 100%; /* 设置html和body的高度为100% */
     margin: 0; /* 移除默认的margin */
 }
