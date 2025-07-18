@@ -1,5 +1,6 @@
 body {
     background-color: #ffffff;
+    padding: 1%;
     
 }
 
@@ -27,12 +28,12 @@ body {
     display: block;
     text-decoration: none;
     color:#222222;
-    margin: 0 0.5em;
+    margin: 0 0.6em;
 
 }
 
 .button_right{
-    margin: 0 0.5em;
+    margin: 0 0.6em;
 }
 
 
@@ -51,14 +52,12 @@ body {
 
 
 
-.logo_search { 
+.baidu_logo { 
     display: block;
     margin: 0 auto;
     width: 25em;
     height: 10em;
     border-radius: 3%;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .search{
