@@ -135,5 +135,6 @@ body {
 
 #footer{
     text-align: center;
+    justify-content: center;
     margin-top: 37%;
 }
