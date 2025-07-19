@@ -1,46 +1,317 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <link rel="stylesheet" href="CSS/index_styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="no-cache">
-    <meta name="description" content="这是Gothweb的起始页,我们的目的让世界充满希望，即使">
-    <link rel="icon" type="image/x-icon" href="res/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
-
-
+    <title>小白友好 - 简单访问计数器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #1a2a6c 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        header {
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 30px;
+        }
+        
+        .counter-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        
+        .counter-title {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .counter {
+            font-size: 4rem;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            color: white;
+            text-align: left;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .value {
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        footer {
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .animate {
+            animation: pulse 0.5s ease;
+        }
+    </style>
 </head>
 <body>
-        <container>
-            <div class="top_info" id="top_info">
-                <div class="left_group">
-                    <a id="logo" href="https://gothweb.top" class="button_left">
-                        <img src="res/favicon.ico" alt="logo" title=""> </a>
-                    <a class="button_left" href="https://github.com/Goth-DongHaiTang" target="_blank">Github</a>
-                        
-                </div>
-                <div class="middle_group">
-                    <input type="search" id="search_input" placeholder="搜索页面...">
-                    <button id="search_button">搜索</button>
-                </div>
-
-
-                <div class="right_group">
-                    <a class="button_right" href="image.html" target="_blank">
-                        <img src="res/avadtar.png" alt="A person smiling warmly in a profile avatar, set against a soft background suggesting a welcoming and friendly atmosphere" title="头像" class="icon">
-                        个人主页</a>
-                        
-                </div>
-
-            </div>
-        <li><a href="./page/test.html" target="_blank">测试与学习HTML的网页🥰👍</a></li><br />
-        <li><a href="https://github.com" target="_blank">&copy; 2025本网页由Github action提供支持</a></li>
-        <li><a href="weixin://contacts/profile/Sugar_orange_Yummy" target="_blank">联系我的Wechat</a>:<strong>Sugar_orange_Yummy</strong></li>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cloud"></i> 简单访问计数器</h1>
+            <p>无需部署，直接在浏览器中使用</p>
+        </header>
         
-    
-    </container>
+        <div class="card">
+            <div class="counter-box">
+                <div class="counter-title">
+                    <i class="fas fa-users"></i> 您是本站点的第
+                </div>
+                <div id="counter" class="counter">0</div>
+                <div class="counter-title">
+                    位访问者
+                </div>
+            </div>
+            
+            <button class="btn" onclick="incrementCounter()">
+                <i class="fas fa-plus-circle"></i> 增加访问计数
+            </button>
+            
+            <div class="info">
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-calendar"></i> 当前日期：</span>
+                    <span id="date" class="value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-clock"></i> 当前时间：</span>
+                    <span id="time" class="value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-laptop"></i> 设备类型：</span>
+                    <span id="device" class="value"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> 使用说明</h3>
+            
+            <div class="step">
+                <p><strong>1. 保存文件</strong></p>
+                <p>右键点击页面 → 选择"另存为" → 保存为HTML文件</p>
+            </div>
+            
+            <div class="step">
+                <p><strong>2. 本地运行</strong></p>
+                <p>双击保存的文件即可在浏览器中打开</p>
+            </div>
+            
+            <div class="step">
+                <p><strong>3. 使用计数器</strong></p>
+                <p>点击"增加访问计数"按钮来模拟访问增加</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>简单访问计数器 | 无需服务器 | 零配置</p>
+        </footer>
+    </div>
+
+    <script>
+        // 初始化计数器
+        let visitCount = localStorage.getItem('visitCount');
+        if (visitCount === null) {
+            visitCount = 0;
+        } else {
+            visitCount = parseInt(visitCount);
+        }
+        
+        // 更新计数器显示
+        document.getElementById('counter').textContent = visitCount;
+        
+        // 更新日期和时间
+        function updateDateTime() {
+            const now = new Date();
+            
+            // 格式化日期：YYYY年MM月DD日
+            const dateStr = now.getFullYear() + '年' + 
+                            (now.getMonth() + 1).toString().padStart(2, '0') + '月' + 
+                            now.getDate().toString().padStart(2, '0') + '日';
+            
+            // 格式化时间：HH:MM:SS
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + 
+                          now.getMinutes().toString().padStart(2, '0') + ':' + 
+                          now.getSeconds().toString().padStart(2, '0');
+            
+            document.getElementById('date').textContent = dateStr;
+            document.getElementById('time').textContent = timeStr;
+        }
+        
+        // 检测设备类型
+        function detectDevice() {
+            const userAgent = navigator.userAgent;
+            
+            if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent)) {
+                return '移动设备';
+            } else if (/Tablet|iPad|PlayBook|Silk|Xoom|SCH-I800|Kindle Fire/.test(userAgent)) {
+                return '平板设备';
+            }
+            return '电脑设备';
+        }
+        
+        // 增加计数器
+        function incrementCounter() {
+            visitCount++;
+            localStorage.setItem('visitCount', visitCount.toString());
+            
+            document.getElementById('counter').textContent = visitCount;
+            
+            // 添加动画效果
+            document.getElementById('counter').classList.add('animate');
+            setTimeout(() => {
+                document.getElementById('counter').classList.remove('animate');
+            }, 500);
+        }
+        
+        // 初始化页面
+        function initPage() {
+            updateDateTime();
+            document.getElementById('device').textContent = detectDevice();
+            
+            // 每秒更新时间
+            setInterval(updateDateTime, 1000);
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', initPage);
+    </script>
 </body>
 </html>
