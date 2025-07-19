@@ -1,9 +1,16 @@
 {
-  "main": "./src/index.js",
+  "name": "visitor-counter",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-01-01",
   "r2_buckets": [
     {
-      "binding": "MY_BUCKET",
-      "bucket_name": "<MY_BUCKET_NAME>"
+      "binding": "COUNTER_STORE",
+      "bucket_name": "visitor-counter-bucket",
+      "preview_bucket_name": "visitor-counter-bucket-preview"
     }
-  ]
+  ],
+  "dev": {
+    "ip": "localhost",
+    "port": 8787
+  }
 }
