@@ -1,5 +1,5 @@
   {
-    "name": "worker-name",
+    "name": "gothweb",
     "compatibility_date": "2025-07-19",
     "main": "src/index.ts"
   }
