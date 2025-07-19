@@ -1,5 +1,9 @@
-  {
-    "name": "gothweb",
-    "compatibility_date": "2025-07-19",
-    "main": "src/index.ts"
-  }
+{
+  "main": "./src/index.js",
+  "r2_buckets": [
+    {
+      "binding": "MY_BUCKET",
+      "bucket_name": "<MY_BUCKET_NAME>"
+    }
+  ]
+}
