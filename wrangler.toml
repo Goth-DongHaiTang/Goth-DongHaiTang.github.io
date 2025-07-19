@@ -1,5 +1,3 @@
-[observability.logs]
-enabled = true
 kv_namespaces = [
   { binding = "VISIT_COUNTER", id = "KV_ID" }
 ]
