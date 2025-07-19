@@ -1,8 +1,6 @@
 {
   "name": "gothweb",
   "main": "src/index.ts",
-  "compatibility_date": "2025-07-19",
-  "变量": { 
-  }
+  "compatibility_date": "2025-07-19"
 }
 
