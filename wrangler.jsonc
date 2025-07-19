@@ -1,9 +1,6 @@
 {
-  "main": "./src/index.ts",
-  "r2_buckets": [
-    {
-      "binding": "MY_BUCKET",
-      "bucket_name": "goth"
-    }
-  ]
+  "name": "visitor-counter",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-07-19"
+  
 }
