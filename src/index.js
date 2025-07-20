@@ -1,1 +1,1 @@
-alert("Ciallo～(∠・ω< )⌒★ ",String);
+alert("Ciallo 你好鸭",String);
