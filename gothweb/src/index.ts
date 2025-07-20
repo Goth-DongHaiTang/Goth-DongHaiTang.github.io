@@ -10,15 +10,33 @@
  *
  * Learn more at https://developers.cloudflare.com/workers/
  */
+interface Env {
+	MY_VARIABLE: "Gothweb_value";
+	MY_KV: KVNamespace;
+}
+
+
+
+
+
+
+
+
+
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
 
 
+		console.log(env.MY_VARIABLE);
+		await env.MY_KV.put('Test_Key', 'Test_Value');
 
+		console.log(await env.MY_KV.get('Test_Key'));
 
 		const url = new URL(request.url);
 		switch (url.pathname) {
+			case '/':
+				return new Response('Hello, World!');
 			case '/message':
 				return new Response('Hello, World!');
 			case '/random':
