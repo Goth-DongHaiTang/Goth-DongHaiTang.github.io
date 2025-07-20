@@ -38,12 +38,7 @@
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 	 */
 	"vars": { "MY_VARIABLE": "Gothweb_value" },
-	"kv_namespaces": [
-		{
-			"binding": "MY_KV",
-			"id": "Gothweb_number"
-		}
-	],
+
 	/**
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/

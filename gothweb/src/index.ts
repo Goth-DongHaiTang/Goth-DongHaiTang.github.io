@@ -1,48 +1,5 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Bind resources to your worker in `wrangler.jsonc`. After adding bindings, a type definition for the
- * `Env` object can be regenerated with `npm run cf-typegen`.
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
-interface Env {
-	MY_VARIABLE: "Gothweb_value";
-	MY_KV: KVNamespace;
-}
-
-
-
-
-
-
-
-
-
-
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
-
-
-		console.log(env.MY_VARIABLE);
-		await env.MY_KV.put('Test_Key', 'Test_Value');
-
-		console.log(await env.MY_KV.get('Test_Key'));
-
-		const url = new URL(request.url);
-		switch (url.pathname) {
-			case '/':
-				return new Response('Hello, World!');
-			case '/message':
-				return new Response('Hello, World!');
-			case '/random':
-				return new Response(crypto.randomUUID());
-			default:
-				return new Response('Not Found', { status: 404 });
-		}
-	},
-} satisfies ExportedHandler<Env>;
+  async fetch(request, env, ctx) {
+    return new Response("花落人烟寂，又逢一冬残，丛生人烟暖，又逢一春生。");
+  },
+};
