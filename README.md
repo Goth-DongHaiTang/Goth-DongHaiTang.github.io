@@ -1,9 +1,7 @@
 
-# <center>Ciallo </center>
+# Ciallo (∠・ω< )⌒★ 
 
-
-
-![(∠・ω< )⌒★](./res/美咕噜.png)
+![ciallo](./res/美咕噜.png)
 
 
 
