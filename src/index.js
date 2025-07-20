@@ -1,1 +1,1 @@
-alert("Ciallo 你好鸭",String);
+alert("Ciallo");
