@@ -9,7 +9,4 @@
 
 
 
-</div>
-.container{
-    align-items: center;
-}
+</div stylre="text-align: center;">
