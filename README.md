@@ -1,58 +1,41 @@
-# Goth-DongHaiTang.github.io
-my page
-# cloudflare-worker  标准入口格式
+# cloudflare documentation
+# npm craete cloudflare
+创建项目 按需回车选择
+
+# cd 项目名
+
+
+# npx wrangler dev 
+本地测试
+# http://localhost:8787/
+
+主要目录:
+# src/index.ts
+
 export default {
-  async fetch(request) {
-    // 请求处理逻辑
-
-
-fetch 方法是 Worker 的请求处理函数
-
-async 表明这是一个异步函数
-
-try{
-
-const url = new URL(request.url);
-声明一个变量 url 并赋值一个对象URL给它
-
-
-if (url.pathname === "/") {
-  return new Response("Hello from Cloudflare Worker!", {
-    headers: { "Content-Type": "text/plain" }
-  });
-}
-
-如果 (网页.路径名称=== "/" 无){
-    返回 新的 对象响应(“Hello from Cloudflare Worker!”，{
-        头部: { "内容类型": "文本/纯文本" }
-    })
-}
-
-
-if (url.pathname === "/test")  如果网页.路径是=== "/test"
-{           -----------------------------------------------
-  const data = {                  // 创建一个对象 data 
-    method: request.method,       // 请求方法 (GET/POST等)
-    path: url.pathname,           // 请求路径
-    query: Object.fromEntries(url.searchParams), // 查询参数转对象
-    headers: Object.fromEntries(request.headers), // 请求头转对象
-    cf: request.cf                // Cloudflare 特殊数据
-  };
-  ---------------------------------------------------------
-  return new Response(JSON.stringify(data, null, 2), {     返回新的结果(生成格式化的 JSON（2空格缩进）)
-                                                            设置 JSON 内容类型头
-    headers: { "Content-Type": "application/json" }
-  });
-
-}
-
-return new Response("Not Found", { status: 404 });
-    } catch (error) {
-      return new Response(`Error: ${error.message}`, { status: 500 });
-    }
-  }
+  async fetch(request, env, ctx) {
+    return new Response("Hello World!");
+  },
 };
-export {
-  index_default as default
+
+# export default
+是定义 JavaScript 模块↗所需的 JavaScript 语法。您的 Worker 必须具有对象的默认导出，其属性与 Worker 应处理的事件相对应。
+----------------------------
+# fetch()
+当您的 Worker 收到 HTTP 请求时，将调用此 fetch（） 处理程序。您可以在导出的对象中定义其他事件处理程序以响应不同类型的事件。例如，添加一个 scheduled（） 处理程序以通过 Cron 触发器响应 Worker 调用。
+此外，处理程序fetch将始终传递三个参数：request、env 和 context。
+----------------------------------------
+# return
+Workers 运行时期望处理程序返回一个对象或一个 Promise，该对象或 Promise 与对象一起解析。在此示例中，您将返回一个带有字符串 .fetchResponseResponseResponse"Hello World!"
+
+# 练习 ：试着更改字符串内容
+    export default {
+  async fetch(request, env, ctx) {
+    return new Response("花落人烟淡，又逢一冬离");
+  },
 };
-//# sourceMappingURL=index.js.map
+# npx wrangler deploy
+应用 部署更改
+
+# AI辅助提示词
+     [提示词](./promt/turtilon-prompt.md)
