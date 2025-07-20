@@ -4,10 +4,6 @@ alert("Ciallo～");
 alert("(∠・ω< )⌒★");
 
 const userName = prompt("请输入你的名称",["(名称)"]);
-if (userName=NaN || userName === null || userName.trim() === "") {
-    alert("请输入你的名称！");
-    return;
-}
 alert(`欢迎你，${userName}！`);
 
 /*  
