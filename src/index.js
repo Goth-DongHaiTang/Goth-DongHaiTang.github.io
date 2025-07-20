@@ -1,1 +1,1 @@
-alert("Ciallo");
+alert("Ciallo～(∠・ω< )⌒★");
