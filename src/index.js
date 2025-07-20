@@ -1,1 +1,1 @@
-alert("Hello, GothWeb!",String);
+alert("Ciallo～(∠・ω< )⌒★ ",String);
