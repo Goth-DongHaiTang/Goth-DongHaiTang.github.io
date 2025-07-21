@@ -391,7 +391,7 @@
 
     // 用得到的值做些事……
   }
-}
+    }
 
     alert('Done!');
     上述代码中，break outer 向上寻找名为 outer 的标签并跳出当前循环。
@@ -399,3 +399,345 @@
     因此，控制权直接从 (*) 转至 alert('Done!')。
 
     我们还可以将标签移至单独一行：
+
+    ||  或 &&  与!非
+        do {
+    let number = prompt("请输入数字：") // 在do块内声明
+    } while (number < 100 || number == null || number == "")
+    问题分析：
+
+    作用域错误：number 使用 let 在 do{...} 代码块内部声明，其作用域仅限于该代码块。
+
+    条件判断失效：while 条件中的 number 处于块级作用域之外，无法访问内部变量，导致 ReferenceError（未定义变量）。
+
+    实际效果：循环条件永远无法读取到 number，代码无法运行。
+
+# 输出素数（prime）
+    重要程度: 3
+    大于 1 且不能被除了 1 和它本身以外的任何数整除的整数叫做素数。
+
+    换句话说，n > 1 且不能被 1 和 n 以外的任何数整除的整数，被称为素数。
+
+    例如，5 是素数，因为它不能被 2、3 和 4 整除，会产生余数。
+
+    写一个可以输出 2 到 n 之间的所有素数的代码。
+
+    当 n = 10，结果输出 2、3、5、7。
+
+    P.S. 代码应适用于任何 n，而不是对任何固定值进行硬性调整。
+    提示：  let n = 10;
+
+        nextPrime:
+        for (let i = 2; i <= n; i++) { // 对每个自然数 i
+
+        for (let j = 2; j < i; j++) { // 寻找一个除数……
+            if (i % j == 0) continue nextPrime; // 不是素数，则继续检查下一个
+        }
+
+        alert( i ); // 输出素数
+        }
+
+# swich语法
+    switch 语句有至少一个 case 代码块和一个可选的 default 代码块。
+
+    就像这样：
+
+    switch(x) {
+    case 'value1':  // if (x === 'value1')
+        ...
+        [break]
+
+    case 'value2':  // if (x === 'value2')
+        ...
+        [break]
+
+    default:
+        ...
+        [break]
+    }
+    比较 x 值与第一个 case（也就是 value1）是否严格相等，然后比较第二个 case（value2）以此类推。
+    如果相等，switch 语句就执行相应 case 下的代码块，直到遇到最靠近的 break 语句（或者直到 switch 语句末尾）。
+    如果没有符合的 case，则执行 default 代码块（如果 default 存在）。
+    任何表达式都可以成为 switch/case 的参数
+# “case” 分组
+    共享同一段代码的几个 case 分支可以被分为一组：
+
+    比如，如果我们想让 case 3 和 case 5 执行同样的代码：
+
+    let a = 3;
+
+    switch (a) {
+    case 4:
+    alert('Right!');
+    break;
+
+    case 3: // (*) 下面这两个 case 被分在一组
+    case 5:
+    alert('Wrong!');
+    alert("Why don't you take a math class?");
+    break;
+
+    default:
+        alert('The result is strange. Really.');
+    }
+    现在 3 和 5 都显示相同的信息。
+
+    switch/case 有通过 case 进行“分组”的能力，其实是 switch 语句没有 break 时的副作用。因为没有 break，case 3 会从 (*) 行执行到 case 5
+# 函数声明
+    使用 函数声明 创建函数。
+
+    看起来就像这样：
+
+    function showMessage() {
+      alert( 'Hello everyone!' );
+    }
+    function 关键字首先出现，然后是 函数名，然后是括号之间的 参数 列表（用逗号分隔，在上述示例中为空，我们将在接下来的示例中看到），最后是花括号之间的代码（即“函数体”）。
+
+    function name(parameter1, parameter2, ... parameterN) {
+    ...body...
+    } 
+    我们的新函数可以通过名称调用：showMessage()。
+
+        局部变量
+            在函数中声明的变量只在该函数内部可见。
+
+        外部变量
+            函数也可以访问外部变量，例如：
+
+            let userName = 'John';
+
+            function showMessage() {
+            let message = 'Hello, ' + userName;
+            alert(message);
+                }
+
+            showMessage(); // Hello, John
+            函数对外部变量拥有全部的访问权限。函数也可以修改外部变量。
+            只有在没有局部变量的情况下才会使用外部变量。
+
+            如果一个函数被调用，但有参数（argument）未被提供，那么相应的值就会变成 undefined。
+
+            function showCount(count) {
+    // 如果 count 为 undefined 或 null，则提示 "unknown"
+        alert(count ?? "unknown");
+        }
+
+        showCount(0); // 0
+        showCount(null); // unknown
+        showCount(); // unknown
+        这个值是正常把 ?? "不然就是这个"
+        空值的 return 或没有 return 的函数返回值为 undefined
+        return (
+    some + long + expression
+    + or +
+    whatever * f(a) + f(b)
+    )
+    不能缺少()
+# 一个函数 —— 一个行为
+    一个函数应该只包含函数名所指定的功能，而不是做更多与函数名无关的功能。
+
+    两个独立的行为通常需要两个函数，即使它们通常被一起调用（在这种情况下，我们可以创建第三个函数来调用这两个函数）。
+
+    有几个违反这一规则的例子：
+
+    getAge —— 如果它通过 alert 将 age 显示出来，那就有问题了（只应该是获取）。
+    createForm —— 如果它包含修改文档的操作，例如向文档添加一个表单，那就有问题了（只应该创建表单并返回）。
+    checkPermission —— 如果它显示 access granted/denied 消息，那就有问题了（只应执行检查并返回结果）。
+    这些例子假设函数名前缀具有通用的含义。你和你的团队可以自定义这些函数名前缀的含义，但是通常都没有太大的不同。无论怎样，你都应该对函数名前缀的含义、带特定前缀的函数可以做什么以及不可以做什么有深刻的了解。所有相同前缀的函数都应该遵守相同的规则。并且，团队成员应该形成共识。
+
+    函数名应该清楚地描述函数的功能。当我们在代码中看到一个函数调用时，一个好的函数名能够让我们马上知道这个函数的功能是什么，会返回什么。
+    一个函数是一个行为，所以函数名通常是动词。
+    目前有许多优秀的函数名前缀，如 create…、show…、get…、check… 等等。使用它们来提示函数的作用吧。
+
+    return (age > 18) ? true : confirm('Did parents allow you?');
+    retrun (age >18) ? true : confirm('Did parents allow you?');
+
+# 匿名函数
+    我们可以使用函数表达式来编写一个等价的、更简洁的函数：
+
+    function ask(question, yes, no) {
+    if (confirm(question)) yes()
+  e lse no();
+    }
+
+    ask(
+    "Do you agree?",
+    function() { alert("You agreed."); },
+        function() { alert("You canceled the execution."); }
+        );
+        这里直接在 ask(...) 调用内进行函数声明。这两个函数没有名字，所以叫 匿名函数
+# 箭头函数 、
+    创建函数还有另外一种非常简单的语法，并且这种方法通常比函数表达式更好。
+
+    它被称为“箭头函数”，因为它看起来像这样：
+
+    let func = (arg1, arg2, ..., argN) => expression;
+
+    如果我们只有一个参数，还可以省略掉参数外的圆括号，使代码更短。
+
+    例如：
+
+        let double = n => n * 2;
+    // 差不多等同于：let double = function(n) { return n * 2 }
+
+    alert( double(3) ); // 6
+
+
+    ask(
+    "Do you agree?",
+    function() { alert("You agreed."); },
+    function() { alert("You canceled the execution."); }
+    );
+
+    ask(
+    "Do you agree?",
+    () -> alert("You agreed."); 
+    () -> alert("You canceled the execution."); 
+    );
+# 注释
+    这些内容：
+
+    整体架构，高层次的观点。
+    函数的用法。
+    重要的解决方案，特别是在不是很明显时。
+    避免注释：
+
+    描述“代码如何工作”和“代码做了什么”。
+    避免在代码已经足够简单或代码有很好的自描述性而不需要注释的情况下，还写些没必要的注释。
+    注释写WHY，函数写HOW
+
+# 命名
+    当选择一个名字时，不要尽可能尝试使用最抽象的词语。例如 obj、data、value、item 和 elem 等。 
+    要使用相同的前缀。不要showUSer,displayUser,show_user,show_user_info。
+
+
+
+# 对象
+    创建对象
+    let object = new Object();
+    或是
+    let object = {};
+        let user = {     // 一个对象
+        name: "John",  // 键 "name"，值 "John"
+        age: 30        // 键 "age"，值 30
+        };
+# 可以使用点符号访问属性值：
+
+        // 读取文件的属性：
+        alert( user.name ); // John
+        alert( user.age ); // 30
+
+
+        delete user.age;
+        移除属性
+
+        列表中的最后一个属性应以逗号结尾：
+
+        let user = {
+        name: "John",
+        age: 30,
+        }
+# 方括号
+    对于多词属性，点操作就不能用了：
+    user.likes math = true; // 错误！
+    需使用方括号：
+    user["likes math"] = true;
+    计算属性
+    当创建一个对象时，我们可以在对象字面量中使用方括号。这叫做 计算属性。
+
+    例如：
+
+    let fruit = prompt("Which fruit to buy?", "apple");
+
+    let bag = {
+    [fruit]: 5, // 属性名是从 fruit 变量中得到的
+        };
+
+    alert( bag.apple ); // 5 如果 fruit="apple"
+    计算属性的含义很简单：[fruit] 含义是属性名应该从 fruit 变量中获取。
+
+    所以，如果一个用户输入 "apple"，bag 将变为 {apple: 5}。
+
+    简写
+    在实际开发中，我们通常用已存在的变量当做属性名。
+
+    例如：
+
+    function makeUser(name, age) {
+    return {
+        name: name,
+        age: age,
+        // ……其他的属性
+    };
+    }
+
+        let user = makeUser("John", 30);
+    alert(user.name); // John
+    在上面的例子中，属性名跟变量名一样。这种通过变量生成属性的应用场景很常见，在这有一种特殊的 属性值缩写 方法，使属性名变得更短。
+
+    可以用 name 来代替 name:name 像下面那样：
+
+    function makeUser(name, age) {
+    return {
+        name, // 与 name: name 相同
+        age,  // 与 age: age 相同
+        // ...
+        } ;
+        }
+        我们可以把属性名简写方式和正常方式混用：
+
+    let user = {
+    name,  // 与 name:name 相同
+    age: 30
+        };
+
+
+        属性名称限制
+    我们已经知道，变量名不能是编程语言的某个保留字，如 “for”、“let”、“return” 等……
+
+    但对象的属性名并不受此限制：
+
+    // 这些属性都没问题
+    let obj = {
+    for: 1,
+    let: 2,
+    return: 3
+    };
+
+    alert( obj.for + obj.let + obj.return );  // 6
+    简而言之，属性命名没有限制。属性名可以是任何字符串或者 symbol（一种特殊的标志符类型，将在后面介绍）。
+
+    其他类型会被自动地转换为字符串。
+
+    例如，当数字 0 被用作对象的属性的键时，会被转换为字符串 "0"：
+
+    特别的，检查属性是否存在的操作符 "in"。
+
+    语法是：
+
+
+        "key" in object   返回bool值
+
+
+    "for..in" 循环
+    为了遍历一个对象的所有键（key），可以使用一个特殊形式的循环：for..in。这跟我们在前面学到的 for(;;) 循环是完全不一样的东西。
+
+    语法：
+
+        for (key in object) {
+        // 对此对象属性中的每个键执行的代码
+        }
+# 字符串字面量（需要引号）：user['name']
+
+    变量（不需要引号）：user[name]
+
+
+
+    for (let key in user) {
+        console.log(key) 
+        console.log(user[key])
+        则是输出key的值
+}
+    user.name 
+    user['name']
+    user[name]
