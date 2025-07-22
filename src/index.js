@@ -1,9 +1,10 @@
 import { getBrowserName } from "./borwercheck.js";
 
 
-const name = prompt("请输入你的名字✅：",[""]);
+
 const borwerName = getBrowserName(navigator.userAgent);
 const systemName = navigator.platform;
+const name = prompt("请输入你的名字✅：",[""]);
 alert(`Ciallo~(∠・ω< )⌒★, ${name} ! 🎉🎉🎉。\n 你当前的浏览器是:${borwerName},\n系统是:${systemName}`);
 
 if (name=="宁宁"){
