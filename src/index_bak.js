@@ -1,4 +1,4 @@
-import { getBrowserName } from "./checkUA.js"; // 正确拼写
+import { getBrowserName } from "./checkUA_bak.js"; // 正确拼写
 
 const browserName = getBrowserName(navigator.userAgent);
 const systemName = navigator.platform;
