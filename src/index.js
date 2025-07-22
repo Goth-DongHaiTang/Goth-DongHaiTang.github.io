@@ -1,4 +1,4 @@
-import { getBrowserName } from "borwercheck.js";
+import { getBrowserName } from "./borwercheck.js";
 
 
 
