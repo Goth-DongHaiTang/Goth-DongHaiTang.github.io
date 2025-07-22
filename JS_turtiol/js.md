@@ -741,3 +741,106 @@
     user.name 
     user['name']
     user[name]
+
+
+    而这里两个独立的对象则并不相等，即使它们看起来很像（都为空）：
+
+    let a = {};
+    let b = {}; // 两个独立的对象
+
+    alert( a == b ); // false
+
+
+    克隆与合并，Object.assign
+    那么，拷贝一个对象变量会又创建一个对相同对象的引用。
+
+    但是，如果我们想要复制一个对象，那该怎么做呢？
+
+    我们可以创建一个新对象，通过遍历已有对象的属性，并在原始类型值的层面复制它们，以实现对已有对象结构的复制。
+
+    就像这样：
+
+    let user = {
+    name: "John",
+        age: 30
+    };
+
+    let clone = {}; // 新的空对象
+
+    // 将 user 中所有的属性拷贝到其中
+    for (let key in user) {
+    clone[key] = user[key];
+    }
+
+# // 现在 clone 是带有相同内容的完全独立的对象
+    clone.name = "Pete"; // 改变了其中的数据
+
+    alert( user.name ); // 原来的对象中的 name 属性依然是 John
+    我们也可以使用 Object.assign 方法来达成同样的效果。
+
+    语法是：
+
+O   bject.assign(dest, [src1, src2, src3...])
+    第一个参数 dest 是指目标对象。
+    更后面的参数 src1, ..., srcN（可按需传递多个参数）是源对象。
+    该方法将所有源对象的属性拷贝到目标对象 dest 中。换句话说，从第二个开始的所有参数的属性都被拷贝到第一个参数的对象中。
+    调用结果返回 dest。
+
+
+    for (let key in object){
+        clone[key] = object[key]
+    
+    }
+
+
+    等价于
+    let clone =obect.assign({},object)
+    objectassign({},object)
+
+
+    如果它是一个对象，那么也复制它的结构。这就是所谓的“深拷贝”。
+
+    我们可以使用递归来实现它。或者为了不重复造轮子，采用现有的实现，例如 lodash 库的 _.cloneDeep(obj)。
+
+
+
+
+
+
+
+
+# 对象内部函数表达式
+    oject = { 
+        name: 'John',
+        age : 18,
+        sayhi(){
+            alert("hi",this.name);
+        }
+}
+
+
+    function sayhi(){
+        alert("hi",this.name);
+    }
+
+    引用    oject1.f()=sayhi;
+            oject2.f()=sayhi;
+
+            oject1.f();
+            oject2.f();
+        打印的名字不同，因为this指向了不同的对象。
+# 箭头函数没有自己的 “this”
+    箭头函数有些特别：它们没有自己的 this。如果我们在这样的函数中引用 this，this 值取决于外部“正常的”函数。
+
+    举个例子，这里的 arrow() 使用的 this 来自于外部的 user.sayHi() 方法：
+
+    let user = {
+    firstName: "Ilya",
+    sayHi() {
+        let arrow = () => alert(this.firstName);
+        arrow();
+    } 
+    };
+
+    user.sayHi(); // Ilya
+    这是箭头函数的一个特性，当我们并不想要一个独立的 this，反而想从外部上下文中获取时，它很有用。在后面的 深入理解箭头函数 一章中，我们将深入介绍箭头函数。

@@ -1,21 +1,15 @@
-let user = {
-    name: 12,
-    age: 20,
-    isAdmin: 12
+const name = prompt("请输入你的名字✅：",["宁宁"]);
+let borwerName = navigator.userAgent;
+let systemName = navigator.platform;
+alert(`Ciallo~(∠・ω< )⌒★, ${name} ! 🎉🎉🎉。\n 你当前的浏览器是:${borwerName},\n系统是:${systemName}`);
+
+if (name=="宁宁"){
+    alert("你已登录！");
+    confirm("是否跳转到彩蛋界面？")
+    location.href = "./admin.html";
 }
 
-let sum = 0;
-user["name"] = prompt("请输入你的名字✅：",[""]);
-alert(`Ciallo~(∠・ω< )⌒★, ${user["name"]} ! 🎉🎉🎉`);
 
-
-
-for (let key in user){
-    console.log(key, user[key]);
-    sum = user[key] + sum;
-    console.log(sum);
-}
-    
 /*  
 let result = confirm("你喜欢这个网站吗？");
 if (result) {

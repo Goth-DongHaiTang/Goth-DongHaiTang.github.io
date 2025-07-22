@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+html ,body {
+    background: linear-gradient(to right, #388ba9, #5e3fa5,#901846);
+    font-family: 'Arial', sans-serif;
+    
+}
+
+.container {
+    margin: auto;
+    border: 0;
+    padding: 20vw;
+    color: rgba(242,149,139,1);
+}
+.GetUSerInfo{
+
+
+}
