@@ -423,10 +423,11 @@
             }
             
             .toolbar {
-                flex-wrap: nowrap;
-                padding: 0.5rem 1rem;
+                flex-wrap: wrap;
+                padding: 1rem 4rem;
+                margin: 0 0;
+                border: 100%;
             }
-            
             .search-input {
                 width: 150px;
             }
