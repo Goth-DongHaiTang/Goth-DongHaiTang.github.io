@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG图标生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+        }
+
+        button {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-area {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .preview {
+            flex: 1;
+            text-align: center;
+        }
+
+        .icon-preview {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-output {
+            flex: 2;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .code-block pre {
+            color: #a8e6cf;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .predefined-icons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .icon-option {
+            text-align: center;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .icon-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .icon-option.selected {
+            border-color: #4ecdc4;
+            background: rgba(78, 205, 196, 0.2);
+        }
+
+        .icon-option img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .icon-option span {
+            color: white;
+            font-size: 0.8rem;
+            display: block;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 6px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 SVG图标生成器</h1>
+        
+        <div class="tool-section">
+            <h2 class="section-title">
+                <span>📋</span>
+                预定义图标库
+            </h2>
+            <div class="predefined-icons" id="predefinedIcons">
+                <!-- 图标会通过JavaScript生成 -->
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2 class="section-title">
+                <span>🛠️</span>
+                自定义图标生成器
+            </h2>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="iconName">图标名称</label>
+                    <input type="text" id="iconName" placeholder="例如: 我的应用" value="自定义图标">
+                </div>
+                
+                <div class="control-group">
+                    <label for="bgColor">背景颜色</label>
+                    <input type="color" id="bgColor" value="#4F79A4">
+                </div>
+                
+                <div class="control-group">
+                    <label for="iconType">图标类型</label>
+                    <select id="iconType">
+                        <option value="book">书籍</option>
+                        <option value="code">代码</option>
+                        <option value="tool">工具</option>
+                        <option value="share">分享</option>
+                        <option value="learn">学习</option>
+                        <option value="search">搜索</option>
+                        <option value="heart">收藏</option>
+                        <option value="star">星标</option>
+                        <option value="settings">设置</option>
+                        <option value="custom">自定义SVG</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="size">图标尺寸</label>
+                    <select id="size">
+                        <option value="80">80x80</option>
+                        <option value="64">64x64</option>
+                        <option value="48">48x48</option>
+                        <option value="32">32x32</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group" id="customSvgGroup" style="display: none;">
+                <label for="customSvg">自定义SVG路径 (只需要path部分)</label>
+                <textarea id="customSvg" placeholder="例如: M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></textarea>
+            </div>
+
+            <button onclick="generateIcon()">生成图标</button>
+            <button onclick="generateRandomIcon()">随机生成</button>
+        </div>
+
+        <div class="tool-section">
+            <h2 class="section-title">
+                <span>👀</span>
+                预览与代码
+            </h2>
+            
+            <div class="preview-area">
+                <div class="preview">
+                    <img id="iconPreview" class="icon-preview" alt="图标预览">
+                    <p style="color: white; margin-top: 0.5rem;" id="iconTitle">图标预览</p>
+                </div>
+                
+                <div class="code-output">
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('base64')">Base64 URL</button>
+                        <button class="tab" onclick="showTab('svg')">原始 SVG</button>
+                        <button class="tab" onclick="showTab('html')">HTML 代码</button>
+                    </div>
+                    
+                    <div id="base64-content" class="tab-content active">
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard('base64Code')">复制</button>
+                            <pre id="base64Code">生成图标后将显示Base64代码...</pre>
+                        </div>
+                    </div>
+                    
+                    <div id="svg-content" class="tab-content">
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard('svgCode')">复制</button>
+                            <pre id="svgCode">生成图标后将显示SVG代码...</pre>
+                        </div>
+                    </div>
+                    
+                    <div id="html-content" class="tab-content">
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard('htmlCode')">复制</button>
+                            <pre id="htmlCode">生成图标后将显示HTML代码...</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 预定义图标数据
+        const predefinedIcons = [
+            { name: 'Z-Library', color: '#4F79A4', type: 'book' },
+            { name: 'TrendShift', color: '#FF6347', type: 'code' },
+            { name: '开发工具', color: '#6C5B7B', type: 'tool' },
+            { name: '实用工具', color: '#4ECDC4', type: 'settings' },
+            { name: '资源分享', color: '#96CEB4', type: 'share' },
+            { name: '学习资源', color: '#FFA726', type: 'learn' },
+            { name: '搜索引擎', color: '#9575CD', type: 'search' },
+            { name: '收藏夹', color: '#F06292', type: 'heart' }
+        ];
+
+        // SVG路径数据
+        const iconPaths = {
+            book: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z",
+            code: "M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z",
+            tool: "M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z",
+            share: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z",
+            learn: "M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z",
+            search: "M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z",
+            heart: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z",
+            star: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+            settings: "M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"
+        };
+
+        // 生成预定义图标
+        function generatePredefinedIcons() {
+            const container = document.getElementById('predefinedIcons');
+            container.innerHTML = '';
+            
+            predefinedIcons.forEach((icon, index) => {
+                const iconElement = document.createElement('div');
+                iconElement.className = 'icon-option';
+                iconElement.onclick = () => selectPredefinedIcon(icon, iconElement);
+                
+                const svgUrl = generateSVGDataUrl(icon.name, icon.color, icon.type, 80);
+                
+                iconElement.innerHTML = `
+                    <img src="${svgUrl}" alt="${icon.name}">
+                    <span>${icon.name}</span>
+                `;
+                
+                container.appendChild(iconElement);
+            });
+        }
+
+        // 选择预定义图标
+        function selectPredefinedIcon(icon, element) {
+            // 移除其他选中状态
+            document.querySelectorAll('.icon-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            // 更新表单
+            document.getElementById('iconName').value = icon.name;
+            document.getElementById('bgColor').value = icon.color;
+            document.getElementById('iconType').value = icon.type;
+            
+            // 生成图标
+            generateIcon();
+        }
+
+        // 生成SVG数据URL
+        function generateSVGDataUrl(name, bgColor, iconType, size) {
+            const path = iconPaths[iconType] || iconPaths.star;
+            const iconSize = Math.floor(size * 0.5);
+            const iconOffset = Math.floor(size * 0.25);
+            
+            const svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="${size}" height="${size}" rx="${Math.floor(size * 0.15)}" fill="${bgColor}"/>
+                <svg x="${iconOffset}" y="${iconOffset}" width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="white">
+                    <path d="${path}"/>
+                </svg>
+            </svg>`;
+            
+            return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+        }
+
+        // 生成图标
+        function generateIcon() {
+            const name = document.getElementById('iconName').value;
+            const bgColor = document.getElementById('bgColor').value;
+            const iconType = document.getElementById('iconType').value;
+            const size = parseInt(document.getElementById('size').value);
+            
+            let path;
+            if (iconType === 'custom') {
+                path = document.getElementById('customSvg').value || iconPaths.star;
+            } else {
+                path = iconPaths[iconType] || iconPaths.star;
+            }
+            
+            const iconSize = Math.floor(size * 0.5);
+            const iconOffset = Math.floor(size * 0.25);
+            
+            const svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="${size}" height="${size}" rx="${Math.floor(size * 0.15)}" fill="${bgColor}"/>
+                <svg x="${iconOffset}" y="${iconOffset}" width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="white">
+                    <path d="${path}"/>
+                </svg>
+            </svg>`;
+            
+            const base64 = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+            
+            // 更新预览
+            document.getElementById('iconPreview').src = base64;
+            document.getElementById('iconTitle').textContent = name;
+            
+            // 更新代码
+            document.getElementById('base64Code').textContent = base64;
+            document.getElementById('svgCode').textContent = svg;
+            document.getElementById('htmlCode').textContent = `<img src="${base64}" alt="${name}" width="${size}" height="${size}">`;
+        }
+
+        // 生成随机图标
+        function generateRandomIcon() {
+            const colors = ['#4F79A4', '#FF6347', '#6C5B7B', '#4ECDC4', '#96CEB4', '#FFA726', '#9575CD', '#F06292'];
+            const types = Object.keys(iconPaths);
+            
+            document.getElementById('iconName').value = '随机图标 ' + Math.floor(Math.random() * 1000);
+            document.getElementById('bgColor').value = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById('iconType').value = types[Math.floor(Math.random() * types.length)];
+            
+            generateIcon();
+        }
+
+        // 切换标签页
+        function showTab(tabName) {
+            // 隐藏所有标签内容
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 移除所有标签的激活状态
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 显示选中的标签内容
+            document.getElementById(tabName + '-content').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 复制到剪贴板
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制到剪贴板！');
+            });
+        }
+
+        // 监听图标类型变化
+        document.getElementById('iconType').addEventListener('change', function() {
+            const customGroup = document.getElementById('customSvgGroup');
+            if (this.value === 'custom') {
+                customGroup.style.display = 'block';
+            } else {
+                customGroup.style.display = 'none';
+            }
+        });
+
+        // 初始化
+        generatePredefinedIcons();
+        generateIcon();
+    </script>
+</body>
+</html>
