@@ -1,13 +1,10 @@
+import {greetUser} from "./greetUser.js";
 import { getBrowserName } from "./checkUA_bak.js"; // 正确拼写
+
 
 const browserName = getBrowserName(navigator.userAgent);
 const systemName = navigator.platform;
 const name = prompt("请输入你的名字✅：",[""]);
-
-
-function greetUser(name,browserName, systemName){
-alert(`Ciallo~(∠・ω< )⌒★, ${name} ! 🎉🎉🎉。\n 你当前的浏览器是:${browserName},\n系统是:${systemName}`);
-}
 
 
 if(name=="宁宁"){
@@ -27,14 +24,3 @@ else {
     greetUser(name,browserName, systemName)
    console.log("不是宁宁吗？🤔");
 }
-
-
-
-
-
-
-
-
-
-
-
