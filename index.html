@@ -5,57 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="GothWeb - 专注于工具与网站分享，节约时间">
     <link rel="icon" href="./res/favicon.ico">
-    <link rel="stylesheet" href="./CSS/styles.css"></link>
+    <link rel="stylesheet" href="./CSS/styles.css">
+    <script src="./src/main.js"></script>
     <title>GothWeb - 实用工具分享平台</title>
-    <script src="./src/main.js" type="module"></script>
+    
 </head>
 <body>
-    <div class="container">
-        <header class="top_info"> 
-            <div class="left_top">
-                <a class="b_left" href="https://www.gothweb.top" aria-label="返回主页">
-                    <img class="logo" src="./res/favicon.ico" alt="GothWeb Logo">
-                    主页
+    <div class="main">
+        <!-- 遮罩层 -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- 顶部工具栏 -->
+        <div class="toolbar">
+            <button class="toolbar-btn" onclick="toggleLeftSidebar()">📍 导航</button>
+            <button class="toolbar-btn" onclick="toggleSearch()">🔍 搜索</button>
+            <div class="search-container" id="searchContainer">
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索页面内容..." oninput="searchContent()">
+            </div>
+            <button class="toolbar-btn" onclick="toggleRightSidebar()">👤 个人</button>
+        </div>
+
+        <!-- 左侧导航抽屉 -->
+        <div class="sidebar-left" id="leftSidebar">
+            <h3>🧭 网站导航</h3>
+            
+            <div class="nav-group">
+                <h4>主要功能</h4>
+                <a href="#" class="nav-item">🏠 首页</a>
+                <a href="./page/page_res/index.html" class="nav-item">🛠️ 实用工具</a>
+                <a href="#" class="nav-item">📦 资源分享</a>
+                <a href="#" class="nav-item">👨‍💻 开发者工具</a>
+            </div>
+
+            <div class="nav-group">
+                <h4>常用链接</h4>
+                <a href="https://github.com" class="nav-item" target="_blank">🐙 GitHub</a>
+                <a href="https://stackoverflow.com" class="nav-item" target="_blank">💡 Stack Overflow</a>
+                <a href="https://developer.mozilla.org" class="nav-item" target="_blank">📚 MDN 文档</a>
+                <a href="https://www.runoob.com" class="nav-item" target="_blank">📖 菜鸟教程</a>
+            </div>
+
+            <div class="nav-group">
+                <h4>主题切换</h4>
+                <div class="theme-selector">
+                    <button class="theme-btn default active" onclick="setTheme('default')" title="默认主题"></button>
+                    <button class="theme-btn dark" onclick="setTheme('dark')" title="暗黑主题"></button>
+                    <button class="theme-btn light" onclick="setTheme('light')" title="清新主题"></button>
+                    <button class="theme-btn warm" onclick="setTheme('warm')" title="温暖主题"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧个人信息抽屉 -->
+        <div class="sidebar-right" id="rightSidebar">
+            <div class="profile-section">
+                <div class="profile-avatar">👨‍💻</div>
+                <h3 style="color: #fff; margin-bottom: 0.5rem;">GothWeb</h3>
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">专注分享，节约时间</p>
+            </div>
+
+            <div class="nav-group">
+                <h4>联系方式</h4>
+                <a href="#" class="contact-item">
+                    <div class="contact-icon" style="background: #07C160;">💬</div>
+                    <div>
+                        <div>微信</div>
+                        <small style="opacity: 0.7;">GothWeb2025</small>
+                    </div>
                 </a>
-                <a class="b_left" href="#footer" aria-label="关于我们">
-                    关于
+                
+                <a href="#" class="contact-item">
+                    <div class="contact-icon" style="background: #12B7F5;">🐧</div>
+                    <div>
+                        <div>QQ</div>
+                        <small style="opacity: 0.7;">123456789</small>
+                    </div>
+                </a>
+                
+                <a href="https://github.com/Goth-DongHaiTang/" class="contact-item" target="_blank">
+                    <div class="contact-icon" style="background: #333;">🐙</div>
+                    <div>
+                        <div>GitHub</div>
+                        <small style="opacity: 0.7;">Goth-DongHaiTang</small>
+                    </div>
+                </a>
+                
+                <a href="mailto:example@gothweb.top" class="contact-item">
+                    <div class="contact-icon" style="background: #EA4335;">📧</div>
+                    <div>
+                        <div>邮箱</div>
+                        <small style="opacity: 0.7;">example@gothweb.top</small>
+                    </div>
                 </a>
             </div>
 
-            <div class="right_top"> 
-                <a class="b_right" href="https://github.com/Goth-DongHaiTang/" target="_blank" rel="noopener noreferrer" aria-label="访问 GitHub 个人主页">
-                    <img class="logo" src="./res/github.jpg" alt="GitHub Logo">
-                    个人主页
+            <div class="nav-group">
+                <h4>社交媒体</h4>
+                <a href="#" class="contact-item">
+                    <div class="contact-icon" style="background: #E60012;">📺</div>
+                    <div>哔哩哔哩</div>
+                </a>
+                <a href="#" class="contact-item">
+                    <div class="contact-icon" style="background: #FF6800;">🍊</div>
+                    <div>微博</div>
                 </a>
             </div>
-        </header>
+        </div>
 
-        <main class="gallery">
-            <article class="boxResource">
-                <a class="boxResourceA" href="./page/page_res/index.html" aria-label="访问实用工具页面"> 
-                    <img class="boxImage" src="./res/magic_lady/美咕噜Good.png" alt="实用工具集合" loading="lazy">
-                    <p class="brief">专注于工具与网站分享，节约时间。</p>
-                </a>
-            </article>
+        <div class="container">
+            <header class="top_info"> 
+                <div class="left_top">
+                    <a class="b_left" href="https://www.gothweb.top" aria-label="返回主页">
+                        <img class="logo" src="./res/favicon.ico" alt="GothWeb Logo">
+                        主页
+                    </a>
+                    <a class="b_left" href="#footer" aria-label="关于我们">
+                        关于
+                    </a>
+                </div>
 
-            <article class="boxResource">
-                <a class="boxResourceA" href="./page/page_res/index.html" aria-label="访问资源分享页面"> 
-                    <img class="boxImage" src="./res/magic_lady/ningSmile.png" alt="资源分享平台" loading="lazy">
-                    <p class="brief">发现优质资源，提升工作效率。</p>
-                </a>
-            </article>
+                <div class="right_top"> 
+                    <a class="b_right" href="https://github.com/Goth-DongHaiTang/" target="_blank" rel="noopener noreferrer" aria-label="访问 GitHub 个人主页">
+                        <img class="logo" src="./res/github.jpg" alt="GitHub Logo">
+                        个人主页
+                    </a>
+                </div>
+            </header>
 
-            <article class="boxResource">
-                <a class="boxResourceA" href="./page/page_res/index.html" aria-label="访问开发者工具页面"> 
-                    <img class="boxImage" src="./res/magic_lady/ningningHi.png" alt="开发者工具箱" loading="lazy">
-                    <p class="brief">开发者必备工具，助力项目开发。</p>
-                </a>
-            </article>
-        </main>
+            <main class="gallery">
+                <article class="boxResource" data-keywords="工具 实用 效率">
+                    <a class="boxResourceA" href="./page/page_res/index.html" aria-label="访问实用工具页面"> 
+                        <img class="boxImage" src="./res/magic_lady/美咕噜Good.png" alt="实用工具集合" loading="lazy">
+                        <p class="brief">专注于工具与网站分享，节约时间。</p>
+                    </a>
+                </article>
 
-        <footer id="footer" class="footer">
-            <a href="https://www.gothweb.top">© 2025 GothWeb. 专注分享，节约时间。</a>
-        </footer>
+                <article class="boxResource" data-keywords="资源 分享 效率">
+                    <a class="boxResourceA" href="./page/page_res/index.html" aria-label="访问资源分享页面"> 
+                        <img class="boxImage" src="./res/magic_lady/ningSmile.png" alt="资源分享平台" loading="lazy">
+                        <p class="brief">发现优质资源，提升工作效率。</p>
+                    </a>
+                </article>
+
+                <article class="boxResource" data-keywords="开发 工具 项目">
+                    <a class="boxResourceA" href="./page/page_res/index.html" aria-label="访问开发者工具页面"> 
+                        <img class="boxImage" src="./res/magic_lady/ningningHi.png" alt="开发者工具箱" loading="lazy">
+                        <p class="brief">开发者必备工具，助力项目开发。</p>
+                    </a>
+                </article>
+            </main>
+
+            <footer id="footer" class="footer">
+                <a href="https://www.gothweb.top">© 2025 GothWeb. 专注分享，节约时间。</a>
+            </footer>
+        </div>
     </div>
+
 </body>
 </html>
