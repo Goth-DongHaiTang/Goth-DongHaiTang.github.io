@@ -35,3 +35,35 @@ setTimeout(){ funtion(){
 }
 
 }
+
+
+
+# toggle 切换状态
+ 比如 function toggleLeftSidebar() {
+    // 找到左侧抽屉和遮罩层
+    const sidebar = document.getElementById('leftSidebar');
+    const overlay = document.getElementById('overlay');
+    我们可以看到 DOM 取得组件ID 存为 常量
+    // 切换显示/隐藏状态
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    sidebar的classList属性值切换为 active
+}
+
+    function toggleSearch() {
+        搜索框函数
+    const searchContainer = document.getElementById('searchContainer');
+        声明 搜索框内容组件 保存为常量
+    const searchInput = document.getElementById('searchInput');
+        声明 搜索框 保存为常量
+    searchContainer.classList.toggle('active');
+        搜索框内容的classList属性 改为active
+    if (searchContainer.classList.contains('active')) {
+
+        如果 搜索框内容 的属性是
+        searchInput.focus(); // 自动聚焦到搜索框
+    } else {
+        searchInput.value = ''; // 清空搜索内容
+        clearSearch(); // 取消高亮
+    }
+}

@@ -23,9 +23,10 @@
             searchContainer.classList.toggle('active');
             if (searchContainer.classList.contains('active')) {
                 searchInput.focus();
+                // 自动聚焦到搜索框
             } else {
-                searchInput.value = '';
-                clearSearch();
+                searchInput.value = ''; // 清空搜索内容
+                clearSearch();  //清空搜索内容
             }
         }
 
