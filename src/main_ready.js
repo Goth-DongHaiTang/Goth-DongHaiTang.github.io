@@ -11,7 +11,7 @@ if(name=="宁宁"){
     alert("你已登录！");
     greetUser(name,browserName, systemName)
     let bool = confirm("是否跳转到彩蛋界面？")
-    bool ? location.href = "../admin.html" : alert("已返回主页")
+    bool ? location.href = "../../admin.html" : alert("已返回主页")
         
     
 } else if( name.trim() == "" || name==null ||  name==undefined){
