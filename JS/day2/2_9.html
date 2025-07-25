@@ -6,6 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <ul>
+        <div id="test"> </div>
+    </ul>
+    <script>
+        let list =["Hello","Hi","Ciallo"]
+        let text = ""
+        for (i=0;i<list.length;i++){
+            text= text + "<li>"+list[i] +"</li>"
+        }
+        document.getElementById('test').innerHTML = text.toString()
+
+
+    </script>
 </body>
 </html>
